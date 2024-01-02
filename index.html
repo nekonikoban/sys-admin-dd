@@ -14,13 +14,18 @@
         <i class="fas fa-circle-notch fa-spin"></i>
     </div>
 
+    <!-- Tooltip container -->
+    <div id="tooltip" class="tooltip">
+        <div id="tooltipContent" class="tooltip-content"></div>
+    </div>
+
     <div class="left-column">
         <section class="contact">
-            <header>DARIO DAMJANOVIĆ - SYSTEM ADMINISTRATOR</header>
-            <img src="./assets/selfie.jpg" alt="Dario Damjanović">
+            <!-- <header>DARIO DAMJANOVIĆ - SYSTEM ADMINISTRATOR</header> -->
+            <img src="./assets/selfie.png" alt="Dario Damjanović">
             <p><i class="fas fa-phone-volume"></i>+387 60 357 5921</p>
             <p><i class="fas fa-envelope"></i><a href="mailto:damjanovic.dario@email.com" data-tooltip="Send an e-mail">damjanovic.dario@email.com</a></p>
-            <p><i class="fas fa-globe"></i><a href="https://sys-admin-dd.vercel.app" target="_blank">sys-admin-dd.vercel.app</a></p>
+            <p><i class="fas fa-globe"></i><a href="https://sys-admin-dd.vercel.app" data-tooltip="This Website" target="_blank">My Webapp</a></p>
             <p><i class="fas fa-map-marker-alt"></i>Džemala Bijedića 19 / 4</p>
         </section>
 
@@ -90,4 +95,53 @@
     </div>
 </body>
 <script defer src="./frontend.js"></script>
+<script>
+    // Function definitions from frontend.js
+    function showTooltip(element) {
+        const tooltip = document.getElementById('tooltip');
+        var tooltipContent = document.getElementById('tooltipContent')
+        var screenWidth = window.innerWidth
+
+        tooltip.style.visibility = 'visible'
+        tooltip.style.opacity = '1'
+
+        // Get tooltip content from the data-tooltip attribute
+        var tooltipText = element.getAttribute('data-tooltip')
+        
+        // Set the tooltip content
+        tooltipContent.innerHTML = tooltipText
+
+        // Show the tooltip near the cursor
+        tooltip.style.visibility = 'visible'
+
+        // Position the tooltip horizontally based on screen width
+        if (screenWidth - event.clientX < tooltip.offsetWidth) {
+            tooltip.style.left = event.clientX - tooltip.offsetWidth + 'px'
+        } else {
+            tooltip.style.left = event.clientX + 'px'
+        }
+        // Position the tooltip vertically
+        tooltip.style.top = event.clientY + 'px'
+    }
+
+    function hideTooltip() {
+        const tooltip = document.getElementById('tooltip')
+        tooltip.style.visibility = 'hidden'
+        tooltip.style.opacity = '0'
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const tooltips = document.querySelectorAll('[data-tooltip]')
+        
+        tooltips.forEach((link) => {
+            link.addEventListener('mouseover', function() {
+                showTooltip(this)
+            })
+
+            link.addEventListener('mouseout', function() {
+                hideTooltip()
+            })
+        })
+    })
+</script>
 </html>

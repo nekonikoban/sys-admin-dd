@@ -1,4 +1,3 @@
-/* Loader Styles */
 #loader {
     position: fixed;
     top: 0;
@@ -22,11 +21,34 @@
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    pointer-events: none; 
 }
 
 .section-highlighted .connecting-line {
     opacity: 1;
+    z-index: -1; 
 }
+
+.connecting-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; /* Adjust the height of the line */
+    background: linear-gradient(to right, #3498db, #2980b9, #3498db); 
+    animation: animateLine 2s linear infinite; 
+}
+
+@keyframes animateLine {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
 
 body {
     font-family: 'Arial', sans-serif;
@@ -41,7 +63,7 @@ body {
     justify-content: space-around;
     align-items: flex-start;
     min-height: 100vh;
-    position: relative; /* Add position relative for pseudo-element positioning */
+    position: relative;
 }
 
 body::before {
@@ -51,8 +73,8 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75); /* Adjust the last value (0.5) for darkness */
-    z-index: -1; /* Ensure the pseudo-element is behind other content */
+    background: rgba(0, 0, 0, 0.75); 
+    z-index: -1; 
 }
 
 .left-column {
@@ -108,12 +130,12 @@ li {
 }
 
 li::before {
-    content: "\2022"; /* Unicode character for a bullet point */
-    color: #3498db; /* Color for the bullet point */
-    font-size: 1.2em; /* Adjust the size of the bullet point */
-    margin-right: 5px; /* Adjust the spacing between the bullet point and text */
+    content: "\2022";
+    color: #3498db; 
+    font-size: 1.2em; 
+    margin-right: 5px; 
     position: absolute;
-    left: -15px; /* Adjust the distance of the bullet point from the text */
+    left: -15px; 
 }
 
 .contact, .skills, .projects {
@@ -121,7 +143,7 @@ li::before {
 }
 
 .contact img {
-    width: 150px;
+    width: 300px;
     border-radius: 50%;
     margin-bottom: 20px;
     display: block;
@@ -133,7 +155,7 @@ li::before {
     color: white;
     text-decoration: none;
     margin-bottom: 10px;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap; 
     transition: all 0.3s;
 }
 
@@ -163,4 +185,23 @@ li::before {
         flex: 1;
         max-width: 100%;
     }
+}
+
+.tooltip {
+    visibility: hidden;
+    width: auto;
+    max-width: 200px; 
+    background-color: #252525;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 1000;
+    padding: 8px 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; 
+}
+
+.tooltip-content {
+    padding: 10px;
 }
